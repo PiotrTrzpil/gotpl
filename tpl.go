@@ -6,6 +6,7 @@ import (
 	"io"
 	log "github.com/Sirupsen/logrus"
 	"os"
+	"path/filepath"
 	"text/template"
 	"github.com/urfave/cli"
 	"strings"
@@ -46,7 +47,8 @@ func main() {
 		funcs := template.FuncMap {
 			"default": handleDefault,
 		}
-		templ, err := template.New("cs.yaml").Funcs(funcs).ParseFiles(filePath)
+		fileName := filepath.Base(filePath)
+		templ, err := template.New(fileName).Funcs(funcs).ParseFiles(filePath)
 
 		if err != nil {
 			return fmt.Errorf("Error parsing template(s): %v", err)
